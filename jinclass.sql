@@ -3,11 +3,11 @@
 select * from student;
 select * from professor;
 select * from department;
-select * from salgrade; /--µ¥ÀÌÅÍÀüÃ¼¼±ÅÃ ctrl+A
+select * from salgrade; /--ë°ì´í„°ì „ì²´ì„ íƒ ctrl+A
 
 select * from tab;
 
-describe student; /--desc±îÁö¸¸ ÀÔ·ÂÇØµµ ¤·¤»
+describe student; /--descê¹Œì§€ë§Œ ìž…ë ¥í•´ë„ ã…‡ã…‹
 
 select studno, name, userid, birthdate
 from student
@@ -16,31 +16,31 @@ where grade>=2;
 select distinct deptno, grade
 from student;
 
-select studno st, deptno dt, userid id, name "Student", profno AS ±³¼ö¹øÈ£
-from student; /-- Ä®·³¿¡ ´ëÇÑ º°¸í ºÎ¿©
+select studno st, deptno dt, userid id, name "Student", profno AS êµìˆ˜ë²ˆí˜¸
+from student; /-- ì¹¼ëŸ¼ì— ëŒ€í•œ ë³„ëª… ë¶€ì—¬
 
-select name "ÇÐ»ý ÀÌ¸§", deptno ºÎ¼­¹øÈ£, profno as Áöµµ±³¼ö
+select name "í•™ìƒ ì´ë¦„", deptno ë¶€ì„œë²ˆí˜¸, profno as ì§€ë„êµìˆ˜
 from student;
 
-select studno|| name "student" /--ÇÕ¼º¿¬»êÀÚ
+select studno|| name "student" /--í•©ì„±ì—°ì‚°ìž
 from student;
 
-select name || 'ÀÇ Á÷±ÞÀº'|| position "title of professor"
+select name || 'ì˜ ì§ê¸‰ì€'|| position "title of professor"
 from professor;
 
-select 'È«±æµ¿ÀÇ Å°´Â' || height ||  ', ¸ö¹«°Ô´Â' || weight "Å°¿Í ¸ö¹«°Ô Á¤º¸"
-/-- desc studeny; ÇØ¼­ Å×ÀÌºí±¸Á¶ »ìÆìº»´Ù  
+select 'í™ê¸¸ë™ì˜ í‚¤ëŠ”' || height ||  ', ëª¸ë¬´ê²ŒëŠ”' || weight "í‚¤ì™€ ëª¸ë¬´ê²Œ ì •ë³´"
+/-- desc studeny; í•´ì„œ í…Œì´ë¸”êµ¬ì¡° ì‚´íŽ´ë³¸ë‹¤  
 from student;
 
-select name, weight*2.2 as weight_pound /--"weight_pound" µµ °¡´É
+select name, weight*2.2 as weight_pound /--"weight_pound" ë„ ê°€ëŠ¥
 from student;
 
 select * from professor;
 
-select name, sal*12+100 || '¸¸¿ø'
+select name, sal*12+100 || 'ë§Œì›'
 from professor; 
 
-select * from sal; /--Å×ÀÌºí ÀÖ´ÂÁö ¾ø´ÂÁö È®ÀÎÇÏ¶ó´Â ¿À·ù¶ä
+select * from sal; /--í…Œì´ë¸” ìžˆëŠ”ì§€ ì—†ëŠ”ì§€ í™•ì¸í•˜ë¼ëŠ” ì˜¤ë¥˜ëœ¸
 
 insert into student(studno, birthdate)
 values(999, '2022/03/17');
@@ -50,7 +50,7 @@ select*from student;
 select rowid, name from student;  
 
 create table address
-(id number(3),--±âº»Å°¸¦ ÁÖ¸é ³ªÁß¿¡ ´Ù¸¥ Å×ÀÌºí¿¡ ±âº»Å° Áßº¹µÇ¼­ id »ý¼º ºÒ°¡´É
+(id number(3),--ê¸°ë³¸í‚¤ë¥¼ ì£¼ë©´ ë‚˜ì¤‘ì— ë‹¤ë¥¸ í…Œì´ë¸”ì— ê¸°ë³¸í‚¤ ì¤‘ë³µë˜ì„œ id ìƒì„± ë¶ˆê°€ëŠ¥
 name varchar2(50),
 addr varchar2(100),
 phone varchar2(30) default '000',
@@ -59,32 +59,32 @@ email varchar2(100));
 select * from address;
 
 insert into address
-values(1,'È«±æµ¿', 'ºÎ¹Îµ¿ 2°¡', '0103334567', 'abc@dau.ac.kr');
+values(1,'í™ê¸¸ë™', 'ë¶€ë¯¼ë™ 2ê°€', '0103334567', 'abc@dau.ac.kr');
 
-create table addr_second(id, name, addr, phone, email)--ÄÃ·³°³¼ö ¸ÂÃç¾ßÇÔ
+create table addr_second(id, name, addr, phone, email)--ì»¬ëŸ¼ê°œìˆ˜ ë§žì¶°ì•¼í•¨
 as select*from address;
 
 select * from addr_second;
 
---drop table address; --table ¾ø¾Ö°í ½ÍÀº °æ¿ì
+--drop table address; --table ì—†ì• ê³  ì‹¶ì€ ê²½ìš°
 
 select * from tab;
 
 desc address;
 
-create table addr_third --¼­ºêÄõ¸®¸¦ ÀÌ¿ëÇÑ Å×ÀÌºí »ý¼º
+create table addr_third --ì„œë¸Œì¿¼ë¦¬ë¥¼ ì´ìš©í•œ í…Œì´ë¸” ìƒì„±
 as select id, name from address;
 
 select * from addr_third;
 
-create table addr_fourth --Å×ÀÌºí ±¸Á¶ º¹»ç
+create table addr_fourth --í…Œì´ë¸” êµ¬ì¡° ë³µì‚¬
 as select*from address where 1=2;
 
 select*from addr_fourth;
 
-desc addr_fourth; --±¸Á¶ ¶È°°ÀºÁö È®ÀÎ
+desc addr_fourth; --êµ¬ì¡° ë˜‘ê°™ì€ì§€ í™•ì¸
 
-alter table address --Å×ÀÌºí±¸Á¶º¯°æ alter table ¸í·É¹®
+alter table address --í…Œì´ë¸”êµ¬ì¡°ë³€ê²½ alter table ëª…ë ¹ë¬¸
 add (birth date);
 
 select * from address;
@@ -98,20 +98,20 @@ alter table address
 add(comment varchar2(30) default 'No Comment');
 
 alter table address
-drop column comment; -- Å×ÀÌºí Ä®·³ »èÁ¦
+drop column comment; -- í…Œì´ë¸” ì¹¼ëŸ¼ ì‚­ì œ
 
 alter table student
 drop column phone;
 
 alter table address
-modify phone varchar2(50) default '111'; --Å×ÀÌºí Ä®·³ º¯°æ 
+modify phone varchar2(50) default '111'; --í…Œì´ë¸” ì¹¼ëŸ¼ ë³€ê²½ 
 
 desc address;
 
-rename address to new_address; --Å×ÀÌºí ÀÌ¸§ º¯°æ
+rename address to new_address; --í…Œì´ë¸” ì´ë¦„ ë³€ê²½
 
 alter table new_address
-rename column phone to HP; --Å×ÀÌºí Ä®·³ ÀÌ¸§ º¯°æ
+rename column phone to HP; --í…Œì´ë¸” ì¹¼ëŸ¼ ì´ë¦„ ë³€ê²½
 
 desc new_address;
 
@@ -119,20 +119,20 @@ rename addr_second to client_address;
 
 drop table addr_third;
 
-truncate table client_address; --truncate ¸í·É¹®
+truncate table client_address; --truncate ëª…ë ¹ë¬¸
 
 insert into client_address
-values (4, 'ÀÌ¼ø½Å', 'ÁÖ·Êµ¿', '000', '000@dau.ac.kr'); --truncate ¸í·É¹®ÀÌ Å×ÀÌºí±¸Á¶¸¦ ±×´ë·Î À¯ÁöÇÏ´Â°¡ È®ÀÎ
+values (4, 'ì´ìˆœì‹ ', 'ì£¼ë¡€ë™', '000', '000@dau.ac.kr'); --truncate ëª…ë ¹ë¬¸ì´ í…Œì´ë¸”êµ¬ì¡°ë¥¼ ê·¸ëŒ€ë¡œ ìœ ì§€í•˜ëŠ”ê°€ í™•ì¸
 
 select * from client_address; 
 
-comment on table student is '°í°´À» °ü¸®ÇÏ±â À§ÇÑ Å×ÀÌºí'; --ÁÖ¼®Ãß°¡
-comment on column student.name is 'ÇÐ»ýÀÌ¸§';
+comment on table student is 'ê³ ê°ì„ ê´€ë¦¬í•˜ê¸° ìœ„í•œ í…Œì´ë¸”'; --ì£¼ì„ì¶”ê°€
+comment on column student.name is 'í•™ìƒì´ë¦„';
 
-select * from user_tab_comments where table_name = 'STUDENT'; --ÁÖ¼®È®ÀÎ, ¸ðµç ÁÖ¼® ´Ù ³ª¿È ±×·¡¼­ whereÀý »ç¿ë
-select * from user_col_comments where table_name = 'STUDENT'; -- Å×ÀÌºí¸íÀº µñ¼Å³Ê¸®¿¡¼­ ´ë¹®ÀÚ·Î ÀúÀåµÈ´Ù !!
+select * from user_tab_comments where table_name = 'STUDENT'; --ì£¼ì„í™•ì¸, ëª¨ë“  ì£¼ì„ ë‹¤ ë‚˜ì˜´ ê·¸ëž˜ì„œ whereì ˆ ì‚¬ìš©
+select * from user_col_comments where table_name = 'STUDENT'; -- í…Œì´ë¸”ëª…ì€ ë”•ì…”ë„ˆë¦¬ì—ì„œ ëŒ€ë¬¸ìžë¡œ ì €ìž¥ëœë‹¤ !!
 
---12 µ¥ÀÌÅÍ ¹«°á¼º Á¦¾àÁ¶°Ç
+--12 ë°ì´í„° ë¬´ê²°ì„± ì œì•½ì¡°ê±´
 create table subject
 (subno number(5) constraint sub_no_pk primary key, 
 subname varchar2(20) constraint sub_name_nn not null,
@@ -141,39 +141,39 @@ type varchar2 (4));
 
 create table sugang
 (studno number(5),
-subno number constraint sugang_nu_fk references subject(subno), --fk ÁÖ´Â¹ý references
+subno number constraint sugang_nu_fk references subject(subno), --fk ì£¼ëŠ”ë²• references
 regdate date not null,
 result number(3) not null,
 constraint sugang_no_pk primary key(studno, subno));
 
-select table_name, constraint_type, constraint_name --±âº»Å° °É¾ú³ª Á¦¾àÁ¶°Ç È®ÀÎÇÏ´Â ¹ý
+select table_name, constraint_type, constraint_name --ê¸°ë³¸í‚¤ ê±¸ì—ˆë‚˜ ì œì•½ì¡°ê±´ í™•ì¸í•˜ëŠ” ë²•
 from user_constraints
 where table_name in ('SUBJECT', 'SUGANG');
 
 select * from tab;
 
 select * from user_cons_columns
-where table_name in ('SUBJECT','SUGANG'); --µ¥ÀÌÅÍ ¿©·¯°³ÀÏ ¶§ in »ç¿ë
+where table_name in ('SUBJECT','SUGANG'); --ë°ì´í„° ì—¬ëŸ¬ê°œì¼ ë•Œ in ì‚¬ìš©
 
-select * from user_constraints --¿¡¼­
-where table_name in ('SUBJECT', 'SUGANG'); --ÀÌ Å×ÀÌºí µÑÁß¿¡ ¾Æ¹«³ª ÇÏ³ª°¡ ÀÖÀ¸¸é °Å±â¿¡ ÀÖ´Â ¸ðµç ÄÃ·³ º¸¿©´Þ¶ó !
+select * from user_constraints --ì—ì„œ
+where table_name in ('SUBJECT', 'SUGANG'); --ì´ í…Œì´ë¸” ë‘˜ì¤‘ì— ì•„ë¬´ë‚˜ í•˜ë‚˜ê°€ ìžˆìœ¼ë©´ ê±°ê¸°ì— ìžˆëŠ” ëª¨ë“  ì»¬ëŸ¼ ë³´ì—¬ë‹¬ë¼ !
 
-alter table salgrade --[±âÁ¸Å×ÀÌºí¿¡ ¹«°á¼º Á¦¾àÁ¶°Ç Ãß°¡]
-add constraint sal_grade_pk primary key(grade);--constraint ÀÌ¸§ ÁÜ
+alter table salgrade --[ê¸°ì¡´í…Œì´ë¸”ì— ë¬´ê²°ì„± ì œì•½ì¡°ê±´ ì¶”ê°€]
+add constraint sal_grade_pk primary key(grade);--constraint ì´ë¦„ ì¤Œ
 
 alter table salgrade
-modify (losal not null, hisal not null); --null ¹«°á¼º Á¦¾àÁ¶°Ç Ãß°¡, constraint ÀÌ¸§ ¾ÈÁÜ
+modify (losal not null, hisal not null); --null ë¬´ê²°ì„± ì œì•½ì¡°ê±´ ì¶”ê°€, constraint ì´ë¦„ ì•ˆì¤Œ
 
 select * from user_cons_columns
 where table_name in ('SALGRADE'); 
 
 select * from user_constraints 
-where table_name in ('SALGRADE'); --Å°°¡ ¹ºÁö È®½ÇÇÏ°Ô ¾Ë°í½ÍÀ» °æ¿ì
+where table_name in ('SALGRADE'); --í‚¤ê°€ ë­”ì§€ í™•ì‹¤í•˜ê²Œ ì•Œê³ ì‹¶ì„ ê²½ìš°
 
-alter table student --[¹«°á¼º Á¦¾àÁ¶°Ç Ãß°¡½Ç½À ¿¹1]
+alter table student --[ë¬´ê²°ì„± ì œì•½ì¡°ê±´ ì¶”ê°€ì‹¤ìŠµ ì˜ˆ1]
 add(constraint stud_userid_u unique(userid), constraint stud_id_u unique(idnum));
 
-alter table student --¿À·ù³­´Ù ¾Æ·¡ÀÇ ¹æ¹ýÀ¸·Î ÇØ¾ßÇÑ´Ù. ±âº»Å°¼³Á¤ÀÌ ¾ÈµÇ¾îÀÖ´Â »óÅÂ¿¡¼­ ¿Ü·¡Å° ¼³Á¤ ºÒ°¡´É
+alter table student --ì˜¤ë¥˜ë‚œë‹¤ ì•„ëž˜ì˜ ë°©ë²•ìœ¼ë¡œ í•´ì•¼í•œë‹¤. ê¸°ë³¸í‚¤ì„¤ì •ì´ ì•ˆë˜ì–´ìžˆëŠ” ìƒíƒœì—ì„œ ì™¸ëž˜í‚¤ ì„¤ì • ë¶ˆê°€ëŠ¥
 add(constraint stud_profno_fk foreign key(profno) references professor(profno));
 
 --alter table professor
@@ -182,36 +182,36 @@ add(constraint stud_profno_fk foreign key(profno) references professor(profno));
 select * from user_constraints 
 where table_name in ('STUDENT');
 
-alter table department --[¹«°á¼º Á¦¾àÁ¶°Ç Ãß°¡½Ç½À ¿¹2]
-add primary key(deptno); --ÀÚ±â Å×ÀÌºí deptno¿¡ ±âº»Å° ÁÖ°í (¿Ü·¡Å° ÁÖ±â Àü ±âº»Å° Áà¾ßÇÔ)/±âº»Å° pk·Î ¼³Á¤
+alter table department --[ë¬´ê²°ì„± ì œì•½ì¡°ê±´ ì¶”ê°€ì‹¤ìŠµ ì˜ˆ2]
+add primary key(deptno); --ìžê¸° í…Œì´ë¸” deptnoì— ê¸°ë³¸í‚¤ ì£¼ê³  (ì™¸ëž˜í‚¤ ì£¼ê¸° ì „ ê¸°ë³¸í‚¤ ì¤˜ì•¼í•¨)/ê¸°ë³¸í‚¤ pkë¡œ ì„¤ì •
 
-alter table department --colledge fk·Î ¼³Á¤/ fk¼³Á¤ÇÒ¶© ¾î´À Å×ÀÌºí¿¡ ¾î¶² Ä®·³ ÂüÁ¶ÇÏ´ÂÁö ÀÌ ±¸¹® ²À ½áÁà¾ßÇÔ*
-add foreign key(colledge) references department(deptno); --colledge¿¡ fkÁÖµÇ/ departmentÅ×ÀÌºí¿¡ deptno¸¦ ÂüÁ¶ÇÑ´Ù.
---À§ ¿¹2Ã³·³ constraint ¸í ¾ÈÁÙ¶§´Â ¾ø¾î¾ßÇÔ (ÀÌ¸§À» Áà¾ßÇÔ)
+alter table department --colledge fkë¡œ ì„¤ì •/ fkì„¤ì •í• ë• ì–´ëŠ í…Œì´ë¸”ì— ì–´ë–¤ ì¹¼ëŸ¼ ì°¸ì¡°í•˜ëŠ”ì§€ ì´ êµ¬ë¬¸ ê¼­ ì¨ì¤˜ì•¼í•¨*
+add foreign key(colledge) references department(deptno); --colledgeì— fkì£¼ë˜/ departmentí…Œì´ë¸”ì— deptnoë¥¼ ì°¸ì¡°í•œë‹¤.
+--ìœ„ ì˜ˆ2ì²˜ëŸ¼ constraint ëª… ì•ˆì¤„ë•ŒëŠ” ì—†ì–´ì•¼í•¨ (ì´ë¦„ì„ ì¤˜ì•¼í•¨)
 
-select * from user_constraints  --[¹«°á¼º Á¦¾àÁ¶°Ç¿¡ ÀÇÇÑ DML ¸í·É¹®ÀÇ ¿µÇâ]
+select * from user_constraints  --[ë¬´ê²°ì„± ì œì•½ì¡°ê±´ì— ì˜í•œ DML ëª…ë ¹ë¬¸ì˜ ì˜í–¥]
 where table_name in ('DEPARTMENT');
 
-select * from subject; --¾î¶²µ¥ÀÌÅÍÀÖ´ÂÁö È®ÀÎ
+select * from subject; --ì–´ë–¤ë°ì´í„°ìžˆëŠ”ì§€ í™•ì¸
 
 insert into subject
-values (1, 'µ¥ÀÌÅÍº£ÀÌ½º', '1', 'ÇÊ'); 
+values (1, 'ë°ì´í„°ë² ì´ìŠ¤', '1', 'í•„'); 
 
 insert into subject
-values(2, '½ÃºÐ¼³', '1', '¼±'); --±âº»Å° °ªÀº À¯´ÏÅ©ÇØ¾ßÇÏ´Âµ¥ ¶È°°Àº 1³Ö¾î¼­ ½ÇÇà¾ÈµÈ´Ù. 
+values(2, 'ì‹œë¶„ì„¤', '1', 'ì„ '); --ê¸°ë³¸í‚¤ ê°’ì€ ìœ ë‹ˆí¬í•´ì•¼í•˜ëŠ”ë° ë˜‘ê°™ì€ 1ë„£ì–´ì„œ ì‹¤í–‰ì•ˆëœë‹¤. 
 
 insert into subject
-values(3,null, '2', 'ÇÊ'); --null »ðÀÔÇÒ ¼ö ¾ø´Ù. 
+values(3,null, '2', 'í•„'); --null ì‚½ìž…í•  ìˆ˜ ì—†ë‹¤. 
 
 insert into subject
-values(4, 'ºòµ¥ÀÌÅÍ°³·Ð', '3', 'ÇÊ'); -- 1¶Ç´Â 2¸¸ °¡´É 3³ÖÀ¸¸é Ã¼Å©¹«°á¼ºÁ¦¾àÁ¶°Ç
+values(4, 'ë¹…ë°ì´í„°ê°œë¡ ', '3', 'í•„'); -- 1ë˜ëŠ” 2ë§Œ ê°€ëŠ¥ 3ë„£ìœ¼ë©´ ì²´í¬ë¬´ê²°ì„±ì œì•½ì¡°ê±´
 
 insert into sugang
 values(101,2,sysdate,3);
 
 desc sugang; 
 
-select *  --³Ê¹« ¸¹±â ¶§¹®¿¡ *·Î
+select *  --ë„ˆë¬´ ë§Žê¸° ë•Œë¬¸ì— *ë¡œ
 from user_cons_columns
 where table_name='SUGANG';
 
@@ -226,12 +226,12 @@ alter table subject
 drop constraint su_term_ck;
 
 alter table sugang
-drop constraint sugang_no_fk; --sugang Å×ÀÌºí¿¡ subno¿¡ °É·ÁÀÖ´Â ¿Ü·¡Å°¸¦ »èÁ¦ÇÏ¿©¶ó.
+drop constraint sugang_no_fk; --sugang í…Œì´ë¸”ì— subnoì— ê±¸ë ¤ìžˆëŠ” ì™¸ëž˜í‚¤ë¥¼ ì‚­ì œí•˜ì—¬ë¼.
 
 alter table sugang
-drop constraint sugang_no_pk; --sugang Å×ÀÌºí¿¡ subno¿¡ °É·ÁÀÖ´Â pk»èÁ¦ÇÏ¿©¶ó
+drop constraint sugang_no_pk; --sugang í…Œì´ë¸”ì— subnoì— ê±¸ë ¤ìžˆëŠ” pkì‚­ì œí•˜ì—¬ë¼
 
-select *   ---professor Å×ÀÌºí¿¡ profno¿¡ ±âº»Å° student Å×ÀÌºí¿¡ profno¿¡ fk¸¦ ÁØ´Ù
+select *   ---professor í…Œì´ë¸”ì— profnoì— ê¸°ë³¸í‚¤ student í…Œì´ë¸”ì— profnoì— fkë¥¼ ì¤€ë‹¤
 from user_cons_columns
 where table_name in ('STUDERNT', 'PROFESSOR');
 
@@ -239,17 +239,63 @@ alter table professor
 drop constraint profe_profeno_pk cascade;
 
 alter table subject
-enable novalidate constraint sub_name_nn; --¹«°á¼ºÁ¦¾àÁ¶°Ç È°¼ºÈ­ ¹× ºñÈ°¼ºÈ­
+enable novalidate constraint sub_name_nn; --ë¬´ê²°ì„±ì œì•½ì¡°ê±´ í™œì„±í™” ë° ë¹„í™œì„±í™”
 
 insert into subject
-values(7, null, 2,'ÇÊ');
+values(7, null, 2,'í•„');
 
 desc subject;
 
---10Àå 
-desc student; --Å×ÀÌºí±¸Á¶ ¾Ë±â, ´ÜÀÏÇà ÀÔ·Â ¿¹
+--10ìž¥ 
+desc student; --í…Œì´ë¸”êµ¬ì¡° ì•Œê¸°, ë‹¨ì¼í–‰ ìž…ë ¥ ì˜ˆ
 
 insert into student
-values(103,'ÀÌ¼ø½Å','aaa123', null,'9903151234567', '2000/03/01', '', 180,80, 101, 9903); --null,'' ->null°ª ³Ö´Â ¹æ¹ý
+values(103,'ì´ìˆœì‹ ','aaa123', null,'9903151234567', '2000/03/01', '', 180,80, 101, 9903); --null,'' ->nullê°’ ë„£ëŠ” ë°©ë²•
 
 select * from student;
+
+insert into department(deptno, dname, college, loc) --í…Œì´ë¸”ì˜ ì»¬ëŸ¼ëª… ë‹¤ ì ì–´ì¤„ë• ìƒëžµê°€ëŠ¥, ë¶€ë¶„ì ìœ¼ë¡œ ì ì–´ì¤„ ë•Œ ìƒëžµí•œ ê°’ì—ëŠ” nullì´ ë“¤ì–´ê°„ë‹¤. 
+values (400, 'ë„ì‹œê³µí•™ê³¼',10, '5í˜¸ê´€');
+
+insert into department(deptno, dname) --ë¬µì‹œì ì¸ ë°©ë²•ì˜ null ê°’ ìž…ë ¥
+values (500, null); --null ë„£ì€ê±´ ëª…ì‹œì ì¸ ë°©ë²•
+
+select * from department;
+
+insert into student(studno, birthdate)
+values (10000, to_date('1988/08/08', 'yyyy/mm/dd'));
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='STUDENT';
+
+select * from student;
+
+insert into professor --ë‹¤ì¤‘í–‰ ìž…ë ¥: subquery ì‚¬ìš©ì˜ˆ
+select *
+from professor
+where profno > 9905; --ì˜¤ë¥˜ì˜ˆì‹œ
+
+select* from professor;
+
+/*rollback; ì·¨ì†Œì‹œí‚¤ê³  ì‹¶ì„ ì‹œ*/
+
+create table height_info
+(studno number(5),
+name varchar2(10),
+height number(5, 2));
+
+create table weight_info
+(studno number(5),
+name varchar2(10),
+height number(5, 2));
+
+insert all
+into height_info values(studno, name, height)
+into weight_info values(studno, name, weight)
+select studno, name, height, weight
+from student
+where grade >= '2';
+
+select * from height_info;
+select * from weight_info;
