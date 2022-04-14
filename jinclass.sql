@@ -299,3 +299,69 @@ where grade >= '2';
 
 select * from height_info;
 select * from weight_info;
+
+select*from height_info;
+delete height_info; --truncate(롤백 못함)하고 똑같/(delete는 롤백가능)
+delete weight_info;
+commit; --이제 롤백 못함. truncate와 같아짐
+
+insert all --conditional
+when height > 170 then
+into height_info values(studno,name,height)
+when weight > 70 then
+into weight_info values(studno,name,weight)
+select studno, name, height, weight
+from student
+where grade >= '2';
+
+select * from height_info;
+select * from weight_info;
+
+rollback;--취소
+
+insert first
+when height > 170 then
+into height_info values(studno,name,height)
+when weight > 70 then
+into weight_info values(studno,name,weight)
+select studno, name, height, weight
+from student
+where grade >= '2';
+
+update student --데이터수정 예
+set birthdate='81/10/13', idnum='8110132157498' --다 변경되어짐 특정튜플만 변경해주려면 where절 넣어줘야함
+where studno=10108;
+
+select * from student;
+desc student;
+
+select * from professor;
+
+update professor
+set (sal,comm) = (select sal,comm from professor where name='성연희')
+where name = '이재우';
+
+dalete student;
+rollback;
+--하드디스크에 저장시키려면 commit 시켜주면 된다.
+
+delete student
+where studno= 10110;
+
+delete from professor
+where deptno = (select deptno from department where dname='전자공학과');
+rollback;
+
+select * from department;
+
+create table professor_temp --CTS구문
+as select*from professor;
+
+update professor_temp
+set position='명예교수'
+where position = '교수';
+
+insert into professor_temp 
+values(9998, '이순신', 'aaa123', '전임강사', 400, '89/10/25', '', 101);
+
+commit;
