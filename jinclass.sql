@@ -365,3 +365,72 @@ insert into professor_temp
 values(9998, '이순신', 'aaa123', '전임강사', 400, '89/10/25', '', 101);
 
 commit;
+
+select * from professor;
+select * from professor_temp;
+
+merge into professor p
+using professor_temp f
+on (p.profno=f.profno)
+when matched then
+update set p.position=f.position --교수값에서 명예교수값으로
+when not matched then
+insert values (f.profno, f.name, f.userid, f.position, f.sal, f.hiredate, f.comm, f.deptno); --이순신에 관한 레코드 업데이트, 교수->명예교수로 업데이트
+
+update professor
+set comm=50
+where name='김도훈';
+commit;
+
+select studno, name, deptno
+from student
+where grade ='1';
+
+select studno, name, grade, deptno, weight
+from student
+where weight <= 70;
+
+select name, grade, deptno
+from student
+where grade='1'
+and weight >=70;
+
+select name, studno, grade, weight, deptno
+from student
+where grade='1' 
+or weight >=70;
+
+select studno, name, weight
+from student
+where weight between 50 and 70; --weight>=50 and weight<=70; 와 같음
+
+select name, grade, deptno
+from student
+where deptno in (102,201);
+
+select profno, name, position, deptno
+from professor
+where position in ('조교수', '전임강사'); -- position='조교수' or position='전임강사' 랑 같음
+
+select name, grade, deptno
+from student
+where name like'김%'; --김씨가 아닌 사람은 not like '김%'
+--참고로 not in(,,,,)도 있다 !
+
+select name, grade, deptno
+from student
+where name like'김_영';
+
+insert into student(studno, name)
+values (33333,'황보_정호'); --묵시적으로 null값 입력 (안적은 값 null 들어감)
+
+alter table student
+modify (name varchar2(15)); --name 데이터 타입 크게 늘려줌
+
+select name
+from student
+where name like '황보\_%' escape '\'; --'황보^_%' escape '^';
+
+select name, position, comm
+from professor
+where comm is null; -- is not null로 응용가능 
