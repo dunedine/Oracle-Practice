@@ -434,3 +434,51 @@ where name like '황보\_%' escape '\'; --'황보^_%' escape '^';
 select name, position, comm
 from professor
 where comm is null; -- is not null로 응용가능 
+
+select name, sal
+from professor
+where comm is not null and comm>=0; --교수테이블에서 보직수당을 받는 교수의 이름, 급여
+
+select name, sal, comm, sal+comm sal_com
+from professor ;
+
+select name, grade, deptno
+from student
+where deptno =102
+and (grade ='1' 
+or grade='4');
+
+select name, grade, deptno
+from student
+where deptno = 102 
+and grade = '4'
+or grade = '1';
+
+create table stud_heavy
+as select *
+from student where grade='1' and weight>=70; --집합 A
+
+create table stud_101
+as select * from student where grade = '1' and deptno=101; -- 집합 B  
+
+select * from stud_heavy --집합A
+minus
+select * from stud_101;--집합B
+--union all하면서재진이 2번나옴 중복, 서재진이 교집합이다
+
+select name, grade, tel
+from student
+order by name asc; --이름 가나다 순으로 정렬, 오름차순, null값 맨 마지막에 !!
+
+select name, grade, idnum
+from student
+order by grade desc; --내림차순, null 맨처음에 
+
+select name, grade, deptno, birthdate
+from student
+where deptno=101
+order by birthdate asc;
+
+select studno, name, grade, deptno, userid
+from student
+order by 5 asc, 2 desc; --다중칼럼을 이용한 정렬, 컬럼위치번호 칼럼의 위치를 이용한 정렬방법
