@@ -482,3 +482,42 @@ order by birthdate asc;
 select studno, name, grade, deptno, userid
 from student
 order by 5 asc, 2 desc; --다중칼럼을 이용한 정렬, 컬럼위치번호 칼럼의 위치를 이용한 정렬방법
+
+--소속교수는 있으나 소속학생이 없는 학과번호 
+select deptno
+from professor 
+
+intersect
+select deptno
+from department
+
+minus
+select deptno
+from  student;
+
+--6장 sql 함수
+select  name, userid, initcap(userid)
+from student
+where name='김영균'; --initcap 함수
+
+select userid, lower(userid), upper(userid)
+from student
+where studno='20101'; --lower/upper 함수
+
+select dname LENGTH(dname), LENGTHB(dname)
+from department; --length/ lenghtb
+
+select name, idnum, birthdate, substr(idnum, 3,2) 태어난달
+from student
+where grade='1'; --substr
+
+select * from department;
+
+select dname, instr(dname, '과', 1, 1)
+from department; --instr 함수예1
+
+select name,substr(tel, 1, instr(tel,')')-1) tel_loc
+from student;
+
+select position, lpad(position, 10, '*') , rpad(position, 12, '+')
+from professor;
