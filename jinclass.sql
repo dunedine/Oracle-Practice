@@ -521,3 +521,75 @@ from student;
 
 select position, lpad(position, 10, '*') , rpad(position, 12, '+')
 from professor;
+
+select dname, rtrim(dname, '과')
+from department;
+
+select sal, sal/22, round(sal/22, 0), round(sal/22, 2), round(sal/22, -1)
+from professor
+where deptno = 101; --반올림
+
+select sal, sal/22, trunc(sal/22, 0), trunc(sal/22, 2), trunc(sal/22, -1)
+from professor
+where deptno = 101; --절삭 
+
+select name, sal, comm, mod(sal,comm)
+from professor
+where deptno = 101;
+
+select ceil(19.7), floor(12.345)
+from dual;
+
+select name, hiredate, hiredate+30, hiredate+60
+from professor
+where profno=9908;
+
+select sysdate, to_char(sysdate, 'yyyy-mm-dd hh12:mi:ss am')
+from dual;
+
+select profno, name, hiredate, months_between(sysdate, hiredate), add_months(hiredate,6)
+from professor
+where months_between(sysdate, hiredate)<300;
+
+select sysdate, last_day(sysdate), next_day(sysdate, '토')
+from dual;
+
+select sysdate,to_char(round(sysdate,'dd'), 'yy/mm/dd hh24:mi:ss'), 
+round(sysdate,'dd'),trunc(sysdate, 'dd'),
+round(sysdate), trunc(sysdate) --'dd' 생략
+from dual;
+
+select to_char(hiredate, 'yy/mm/dd hh24:mi:ss'),
+to_char(round(hiredate,'dd'), 'yy/mm/dd hh24:mi:ss') round_dd,
+to_char(round(hiredate,'mm'), 'yy/mm/dd hh24:mi:ss') round_mm,
+to_char(round(hiredate,'yy'), 'yy/mm/dd hh24:mi:ss') round_yy
+from professor
+where deptno = 101;
+
+select to_char(sysdate, 'cc"세기",yyyy,day')
+from dual;
+
+select studno, to_char(birthdate, 'yyyy-month')
+from student
+where name='전인하';
+
+select name, grade, to_char(birthdate, 'mon dd, yyyy')
+from student
+where deptno=102;
+
+select name, position, to_char(hiredate, 'yyyy"년" mm"월" dd"일" hh24:mi:ss')
+from professor
+where deptno= 101;
+
+select name, sal, comm, to_char((sal+comm)*12, '$9,999')
+from professor
+where comm is not null;
+
+select to_number('1')
+from dual;
+
+desc professor;
+
+select name, hiredate
+from professor
+where hiredate = to_date('6월 01,01', 'month dd,yy');
