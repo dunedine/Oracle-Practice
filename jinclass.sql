@@ -593,3 +593,97 @@ desc professor;
 select name, hiredate
 from professor
 where hiredate = to_date('6월 01,01', 'month dd,yy');
+
+--6장 중첩함수 사용예
+select idnum, to_date(substr(idnum, 1, 6), 'yy/mm/dd'),'yyyy-mm-dd') --문자추출 substr
+from student;
+
+select name, position, sal, comm, nvl(comm, 0)+sal, nvl(sal+comm, sal) --nvl함수 null값을 다른값으로 대체해주는 함수이다
+from professor
+where deptno =201;
+
+select name, nvl2(comm, sal+comm, sal) total금액 --nvl2, ( ,1번째 값 널이면, 널이아니면)
+from professor
+where deptno=102;
+
+select lengthb(name), lengthb(userid), nullif(lengthb(name), lengthb(userid))
+from professor;
+
+select name, comm, sal, coalesce(comm, sal, 0)
+from professor;
+
+select name, deptno, decode(deptno, 101, '컴퓨터공학과', 102, '멀티미디어학과', 201,'전자공학과',
+'기계공학과') --나머지 학과번호는 기공이니 default값으로 줌
+from professor;
+
+select name, idnum, decode(substr(idnum, 7, 1),1, '남자', '여자') 
+from student
+where deptno = 102;
+
+select name, to_char(sysdate, 'yy/mm/dd') 오늘날짜, birthdate,
+decode(to_char(birthdate, 'mm/dd'),
+to_char(sysdate, 'mm/dd'), '생일 축하합니다', '') message
+from student;
+
+select name, decode(to_char(sysdate, 'mm/dd'), to_char(sysdate, 'mm/dd'), '생일축하합니다', '')
+from student;
+
+select name, deptno, sal, 
+case when deptno=101 then sal*0.1
+when deptno=102 then sal*0.2
+when deptno=201 then sal*0.3
+else 0 
+end 보너스
+from professor;
+
+select name, case when height<160 then  'D'
+when height between 160 and 169 then 'C'
+when height between 170 and 179 then 'B'
+when height between 180 and 190 then 'A'
+end 키
+from student;
+ --7장 그룹함수
+select count(*), count(comm)
+from professor
+where deptno =101; --count함수 
+
+select avg(weight), sum(weight)
+from student
+where deptno = 101;
+
+select max(height), min(height)
+from student
+where deptno = 102;
+
+select round(stddev(sal)), variance(sal)
+from professor --표준편차, 분산, 평균에 round함수 붙여서 정수로 많이 나타내준다. 
+where position='명예교수';
+
+select deptno, position, avg(sal)
+from professor
+group by deptno;
+
+select deptno, count(*)
+from professor
+group by deptno; --deptno가 어느 학과인지 알지못하니 그거 확실성 높이려고 count(*) 
+
+select deptno, count(*), count(comm)
+from professor
+group by deptno;
+
+select deptno, avg(sal), min(sal), max(sal)
+from professor
+group by deptno;
+
+select deptno, grade, count(*), round(Avg(weight))
+from student
+group by deptno, grade
+order by deptno, grade;
+
+select deptno,count(*), sum(sal)
+from professor
+group by rollup(deptno);
+
+select deptno, position, count(*)
+from professor
+group by cube (deptno, position);
