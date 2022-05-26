@@ -686,4 +686,75 @@ group by rollup(deptno);
 
 select deptno, position, count(*)
 from professor
-group by cube (deptno, position);
+group by rollup (deptno, position); --이렇게 하면 학과별/직급별 전체 교수수 나와진다. 
+
+select deptno, position, count(*)
+from professor
+group by rollup (deptno, position); --학과및직급별/ 학과별/ 직급별/ 전체
+
+select deptno, grade, count(*)
+from student
+group by grouping sets(deptno, grade)
+order by grade; --학과별/ 학년별로 나타내어줌
+
+select deptno, grade, to_char(birthdate, 'yyyy') birthdate, count(*)
+from student      --학과내에서 학년별인원수   --학과내에서 태어난 년도별 인원수
+group by grouping sets((deptno, grade), (deptno, to_char(birthdate, 'yyyy'))) --grouping sets 함수 사용법
+order by deptno, grade;
+--to_char: 날찌 , 숫자 -> 문자데이터로 변환 
+
+select deptno, grade, count(*)
+from student
+group by grouping sets((deptno,grade), deptno, grade); --학과별 학년인원수/ 학과별/ 학년별 인원수
+
+select grade, count(*), round(avg(height)) avg_height, round(avg(weight)) avg_weight
+from student
+group by grade
+having count(*) >= 4 --where 절에는 그룹함수 쓸수 없다 !!!!!
+order by avg_height desc;
+
+select max(avg(weight))
+from student
+group by deptno; --함수의 중첩사용 예1
+
+select deptno, avg(weight)
+from student
+group by deptno
+having avg(weight)=(select max(avg(weight)) from student group by deptno); --함수의 중첩사용 예 교수님응용ver
+--그룹함수 중첩시 그룹바이에 중첩한 컬럼이라도 적으면 에러 뜬다.!!!!! 서브쿼리로 풀어야함 !!!!!!!!!!
+
+--8장 조인
+select name, dname
+from student join department on student.deptno = department.deptno
+where studno = 10101;
+
+select studno, s.name, d.dname, d.loc
+from student s join department d on s.deptno = d.deptno
+where name='전인하';
+
+select studno, s.name dname, loc
+from student s, department d
+where s.deptno = d.deptno and name='전인하';
+
+select s.studno, s.name, s.weight, d.dname, d.loc
+from student s join department d on s.deptno=d.deptno
+where weight>=80; --and 연산자를 사용한 검색 조건 추가
+
+select name,dname, student.deptno
+from student cross join department;
+
+select studno, name, deptno, loc
+from student join department using (deptno);
+
+select name, dname, loc
+from student s, department d
+where s.deptno = d.deptno
+and name like '김%';
+
+select s.name, d.dname, d.loc
+from student s natural join department d
+where name loke '김%';
+
+select name, dname, loc 
+from student join department using (deptno)
+where name like '김%';
