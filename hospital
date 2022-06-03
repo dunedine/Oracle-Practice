@@ -1,0 +1,173 @@
+SELECT * FROM ALL_CONS_COLUMNS
+WHERE CONSTRAINT_NAME = ( SELECT CONSTRAINT_NAME
+
+                                           FROM ALL_CONSTRAINTS
+
+                                           WHERE TABLE_NAME = 'HOSPITALIZATION'
+
+                                           AND CONSTRAINT_TYPE = 'P' );
+
+desc department;  
+select*from department;
+drop table department;
+create TABLE department --진료과
+(depno number(4),
+depname varchar2(15));
+
+--키값 주기
+create TABLE department --진료과
+(depno number(4) constraint department_no_pk primary key,
+depname varchar2(15));
+
+--dapartment 테이블 입력
+INSERT INTO department VALUES
+        (101,'성형외과');
+INSERT INTO department VALUES
+        (201,'소아외과');
+
+drop table doctor;
+select * from doctor;
+select table_name, constraint_type, constraint_name 
+from user_constraints
+where table_name in ('DOCTOR', 'DEPARTMENT', 'PATIENT' , 'NURSE', 'HOSPITALROOM', 'HOSPITALIZAION', 'RESPONSIBILITY', 'MEDICALFINGING' , 'CLINIC'
+);
+
+--키값 주기
+create table doctor 
+(docno number(4) constraint doctor_no_pk primary key, 
+ name VARCHAR2(10) ,          
+ tel varchar2(15) ,
+ depno number(4) constraint doctor_depto_fk references department(depno));
+
+
+
+INSERT INTO doctor VALUES
+        (1001, '전인하', '051)781-2158' , 101);
+INSERT INTO doctor VALUES
+        (1002, '이동훈', '055)426-1752', 201);
+        
+        
+---nurse        
+drop table nurse;
+select*from nurse;
+create TABLE nurse
+(nurno number(4) constraint nurse_no_pk primary key,
+ name VARCHAR2(10),          
+ tel varchar2(15),
+ depno number(4) constraint nurse_depto_fk references department(depno));
+ 
+INSERT INTO nurse VALUES
+        (3001, '성연희', '051)882-2159', 101);
+INSERT INTO nurse VALUES
+        (3002, '임영웅', '055)527-1753', 201);
+
+sele
+
+SELECT*FROM patient;
+drop table patient;        
+create TABLE patient -- 환자
+(idnum VARCHAR2(15),
+ dateoftreatment date,          
+ name varchar2(15),
+ address varchar2(20),
+ tel varchar2(15),
+ constraint patient_pk primary key(idnum, dateoftreatment));
+
+ 
+--patient 테이블 입력
+INSERT INTO patient VALUES
+        ('790702-1369824', TO_DATE('02-07-2022','DD-MM-YYYY'), '권혁일', '부산시 연제구', '051)982-2159');
+INSERT INTO patient VALUES
+        ('831210-1128467', TO_DATE('10-12-2022','DD-MM-YYYY'), '이만식', '부산시 북구', '051)627-1753');
+INSERT INTO patient VALUES
+        ('931210-1128467', TO_DATE('08-01-2022','DD-MM-YYYY'), '전은지', '부산시 북구', '051)627-1753');    
+        
+select *
+from patient;
+
+
+desc hospitalroom; 
+select * from hospitalroom;
+drop table hospitalroom;
+create TABLE hospitalroom --병실 애매하니 
+(roomno number(10) constraint hospitalroom_no_pk primary key,
+depno number(4) constraint hospitalroom_depto_fk references department(depno));
+
+
+select *
+from hospitalroom
+where deptno = 101;
+
+INSERT INTO hospitalroom VALUES
+        (100101, 101);
+INSERT INTO hospitalroom VALUES
+        (100102, 201);
+
+desc hospitalization;   
+select * from hospitalization;
+drop table hospitalization;
+create TABLE hospitalization --입원
+(idnum varchar2(15),
+hosdate date,
+disdate date,
+roomno number(10) constraint hospitalization_roomno_fk references hospitalroom(roomno),
+constraint hospitalization_pk primary key(idnum, hosdate));
+
+        
+INSERT INTO hospitalization VALUES
+        ('790702-1369824',TO_DATE('02-07-2022','DD-MM-YYYY'), TO_DATE('10-07-2022','DD-MM-YYYY'),100101);
+
+desc clinic; 
+select * from clinic;
+drop table clinic;
+
+create TABLE clinic(
+clino number(10) constraint clinic_pk primary key,
+idnum varchar2(15),
+docno number(4),
+dateoftreatment date);
+
+create TABLE clinic --진료
+(clino number(10) constraint clinic_no primary key,
+idnum varchar2(15),
+docno number(4) constraint clinic_docno_fk references doctor(docno),
+dateoftreatment date, 
+FOREIGN KEY (idnum, dateoftreatment) REFERENCES patient);
+
+INSERT INTO clinic VALUES
+        (00001, '790702-1369824', 1001, TO_DATE('02-07-2022','DD-MM-YYYY'));
+INSERT INTO clinic VALUES
+        (00002, '831210-1128467', 1001, TO_DATE('10-12-2022','DD-MM-YYYY'));
+INSERT INTO clinic VALUES
+        (00003, '931210-1128467', 1002, TO_DATE('08-01-2022','DD-MM-YYYY'));
+
+desc medicalfinging;
+select * from medicalfinging;
+drop TABLE MEDICALFINGING;
+create TABLE medicalfinging --진료소견
+(clino number(10) constraint medicalfinging_clino_fk references clinic(clino),
+docno number(4) constraint medicalfinging_docno_fk references doctor(docno),
+idnum varchar2(15),
+dateoftreatment date,
+FOREIGN KEY (idnum, dateoftreatment) REFERENCES patient);
+
+
+INSERT INTO medicalfinging VALUES
+        (00001, 1001, '790702-1369824', TO_DATE('02-07-2022','DD-MM-YYYY'));
+INSERT INTO medicalfinging VALUES
+        (00002, 1001, '831210-1128467', TO_DATE('10-12-2022','DD-MM-YYYY'));
+INSERT INTO medicalfinging VALUES
+        (00003, 1002,'931210-1128467', TO_DATE('08-01-2022','DD-MM-YYYY'));
+
+desc responsibility;
+drop table responsibility;
+select * from responsibility;
+create TABLE responsibility --담당
+(nurno number(4) constraint responsibility_nurno_fk references nurse(nurno),
+roomno number(10) constraint responsibility_roomno_fk references hospitalroom(roomno),
+constraint responsibility_pk primary key(nurno, roomno));
+
+INSERT INTO responsibility VALUES
+        (3001, 100101);
+INSERT INTO responsibility VALUES
+        (3002, 100102);
